@@ -1,6 +1,8 @@
+-- Checking Data
 SELECT * FROM world.`housing data 1`;
 
--- DATE FORMAT
+-- Date Formating
+
 select SaleDate, str_to_date(SaleDate , '%M%d, %Y ')  FROM world.`housing data 1`;
 alter table world.`housing data 1`
 add Sale_date date;
@@ -11,7 +13,8 @@ drop column SaleDate ;
 SELECT * FROM world.`housing data 1`;
 
 
--- POPULATE PROPERTYADDRESS DATA
+-- Populate PropertyAddress Data
+
 SELECT PropertyAddress FROM world.`housing data 1`
 where PropertyAddress is null;
 
@@ -34,6 +37,7 @@ and a.UniqueID= b.UniqueID
 where a.PropertyAddress is null;
 
 -- Breaking out Propertyaddress
+
 Select PropertyAddress FROM world.`housing data 1`;
 select substring(PropertyAddress,1, position(',' in PropertyAddress)-1) as Address1 , 
 substring(PropertyAddress, position(',' in PropertyAddress)+1,length(PropertyAddress) ) as Address2
@@ -79,7 +83,8 @@ set OwnersplitState= substring_index(OwnerAddress,',',-1);
 SELECT * FROM world.`housing data 1`;
 
 
--- Replace N WITH No and Y with Yes
+-- Replace N with No and Y with Yes
+
 select distinct(SoldAsVacant) , count(SoldAsVacant) 
 FROM world.`housing data 1`
 group by SoldAsVacant
@@ -101,6 +106,7 @@ else SoldAsVacant
 END;
 
 -- Remove Duplicates
+
 with rownumCTE as(
 select *, row_number() over(
 partition by 
